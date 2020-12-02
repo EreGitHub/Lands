@@ -17,13 +17,13 @@ namespace Lands.ViewModels
         private ApiService apiService;
         #endregion
         #region Atributes
-        private ObservableCollection<Land> lands;
+        private ObservableCollection<LandItemViewModel> lands;
         private bool isRefreshing;
         private string filter;
         private List<Land> landsLst;
         #endregion
         #region Properties
-        public ObservableCollection<Land> Lands
+        public ObservableCollection<LandItemViewModel> Lands
         {
             get { return lands; }
             set { SetValue(ref lands, value); }
@@ -85,13 +85,47 @@ namespace Lands.ViewModels
                 return;
             }
             landsLst = (List<Land>)response.Result;
-            Lands = new ObservableCollection<Land>(landsLst);
+            Lands = new ObservableCollection<LandItemViewModel>(
+                ToLandItemViewModel());
 
             //MainViewModel.GetInstance().LandsList = (List<Land>)response.Result;
             //Lands = new ObservableCollection<LandItemViewModel>(
             //    ToLandItemViewModel());
             IsRefreshing = false;
         }
+
+        #region Methods
+        private IEnumerable<LandItemViewModel> ToLandItemViewModel()
+        {
+            return landsLst.Select(l => new LandItemViewModel
+            {
+                Alpha2Code = l.Alpha2Code,
+                Alpha3Code = l.Alpha3Code,
+                AltSpellings = l.AltSpellings,
+                Area = l.Area,
+                Borders = l.Borders,
+                CallingCodes = l.CallingCodes,
+                Capital = l.Capital,
+                Cioc = l.Cioc,
+                Currencies = l.Currencies,
+                Demonym = l.Demonym,
+                Flag = l.Flag,
+                Gini = l.Gini,
+                Languages = l.Languages,
+                Latlng = l.Latlng,
+                Name = l.Name,
+                NativeName = l.NativeName,
+                NumericCode = l.NumericCode,
+                Population = l.Population,
+                Region = l.Region,
+                RegionalBlocs = l.RegionalBlocs,
+                Subregion = l.Subregion,
+                Timezones = l.Timezones,
+                TopLevelDomain = l.TopLevelDomain,
+                Translations = l.Translations,
+            });
+        }
+        #endregion
         #endregion
         #region Commands
         public ICommand RefreshCommand
@@ -113,13 +147,14 @@ namespace Lands.ViewModels
         {
             if (string.IsNullOrEmpty(Filter))
             {
-                Lands = new ObservableCollection<Land>(
-                    landsLst);
+                Lands = new ObservableCollection<LandItemViewModel>(
+                ToLandItemViewModel());
             }
             else
             {
-                Lands = new ObservableCollection<Land>(
-                    landsLst.Where(q => q.Name.ToLower().Contains(Filter) || q.Capital.ToLower().Contains(Filter)));
+                Lands = new ObservableCollection<LandItemViewModel>(
+                    ToLandItemViewModel()
+                    .Where(q => q.Name.ToLower().Contains(Filter) || q.Capital.ToLower().Contains(Filter)));
             }
         }
         #endregion
