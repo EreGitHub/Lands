@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lands.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,9 @@ namespace Lands.ViewModels
 {
     public class MainViewModel
     {
+        #region Properties
+        public List<Land> landsLst { get; set; }
+        #endregion
         #region ViewModels
         public LoginViewModel Login { get; set; }
         public LandsViewModel Lands { get; set; }

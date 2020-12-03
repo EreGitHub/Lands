@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              x:Class="Lands.View.LandPage"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             IconImageSource="ic_action_info"
              Title="Land">
     <ContentPage.Content>
         <ScrollView

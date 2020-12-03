@@ -20,7 +20,7 @@ namespace Lands.ViewModels
         private ObservableCollection<LandItemViewModel> lands;
         private bool isRefreshing;
         private string filter;
-        private List<Land> landsLst;
+        //private List<Land> landsLst;
         #endregion
         #region Properties
         public ObservableCollection<LandItemViewModel> Lands
@@ -84,20 +84,20 @@ namespace Lands.ViewModels
                 await Application.Current.MainPage.Navigation.PopAsync();
                 return;
             }
-            landsLst = (List<Land>)response.Result;
-            Lands = new ObservableCollection<LandItemViewModel>(
-                ToLandItemViewModel());
-
-            //MainViewModel.GetInstance().LandsList = (List<Land>)response.Result;
+            //landsLst = (List<Land>)response.Result;
             //Lands = new ObservableCollection<LandItemViewModel>(
             //    ToLandItemViewModel());
+
+            MainViewModel.GetInstance().landsLst = (List<Land>)response.Result;
+            Lands = new ObservableCollection<LandItemViewModel>(
+                ToLandItemViewModel());
             IsRefreshing = false;
         }
 
         #region Methods
         private IEnumerable<LandItemViewModel> ToLandItemViewModel()
         {
-            return landsLst.Select(l => new LandItemViewModel
+            return MainViewModel.GetInstance().landsLst.Select(l => new LandItemViewModel
             {
                 Alpha2Code = l.Alpha2Code,
                 Alpha3Code = l.Alpha3Code,

@@ -1,21 +1,51 @@
 ﻿using Lands.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace Lands.ViewModels
 {
-    public class LandViewModel
+    public class LandViewModel : BaseViewModel
     {
+        #region Atributes
+        private ObservableCollection<Border> borders;
+        #endregion
         #region Properties
         public Land Land { get; set; }
+        public ObservableCollection<Border> Borders
+        {
+            get { return borders; }
+            set { SetValue(ref borders, value); }
+        }
         #endregion
 
         #region Contructors
         public LandViewModel(Land land)
         {
             this.Land = land;
-        } 
+            LoadBorders();
+        }
+        #endregion
+        #region Methods
+        private void LoadBorders()
+        {
+            Borders = new ObservableCollection<Border>();
+            foreach (var border in Land.Borders)
+            {
+                var land = MainViewModel.GetInstance().landsLst
+                    .Where(q => q.Alpha3Code == border).FirstOrDefault();
+                if (!(land is null))
+                {
+                    Borders.Add(new Border
+                    {
+                        Code = land.Alpha3Code,
+                        Name = land.Name
+                    });
+                }
+            }
+        }
         #endregion
 
     }
