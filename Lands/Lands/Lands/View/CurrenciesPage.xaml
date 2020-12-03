@@ -4,12 +4,49 @@
              x:Class="Lands.View.CurrenciesPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"  
              IconImageSource="ic_action_monetization_on"
-             Title="Borders">
+             Title="Curries">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout
+            Padding="5"
+            BindingContext="{Binding Land}">
+            <Label
+                FontAttributes="Bold"   
+                FontSize="Medium"
+                Text="{Binding Land.Name}"   
+                TextColor="Black">
+            </Label>
+            <ListView
+                HasUnevenRows="True"
+                ItemsSource="{Binding Currencies}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label                     
+                                    Grid.Column="0"
+                                    Text="{Binding Code}"
+                                    TextColor="Black">
+                                </Label>
+                                <Label
+                                    Grid.Column="1"
+                                    Text="{Binding Name}"
+                                    TextColor="Black">
+                                </Label>
+                                <Label
+                                    Grid.Column="2"
+                                    Text="{Binding Symbol}"
+                                    TextColor="Black">
+                                </Label>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

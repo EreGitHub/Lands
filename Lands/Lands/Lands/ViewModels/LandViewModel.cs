@@ -11,6 +11,7 @@ namespace Lands.ViewModels
     {
         #region Atributes
         private ObservableCollection<Border> borders;
+        private ObservableCollection<Currency> currencies;
         #endregion
         #region Properties
         public Land Land { get; set; }
@@ -19,6 +20,11 @@ namespace Lands.ViewModels
             get { return borders; }
             set { SetValue(ref borders, value); }
         }
+        public ObservableCollection<Currency> Currencies
+        {
+            get { return currencies; }
+            set { SetValue(ref currencies, value); }
+        }
         #endregion
 
         #region Contructors
@@ -26,6 +32,7 @@ namespace Lands.ViewModels
         {
             this.Land = land;
             LoadBorders();
+            Currencies = new ObservableCollection<Currency>(land.Currencies);
         }
         #endregion
         #region Methods
